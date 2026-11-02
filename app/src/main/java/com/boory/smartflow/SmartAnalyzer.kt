@@ -1,3 +1,4 @@
+
 package com.boory.smartflow
 
 import java.time.Instant
@@ -165,7 +166,7 @@ object SmartAnalyzer {
             reasons.add("لم تتوفر شروط دخول قوية حتى الآن")
         }
 
-        AnalysisResult(
+        return AnalysisResult(
             symbol = symbol.uppercase(),
             price = last.close,
             score = score,
