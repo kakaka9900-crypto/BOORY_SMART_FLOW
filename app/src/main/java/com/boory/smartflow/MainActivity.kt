@@ -1,3 +1,4 @@
+
 package com.boory.smartflow
 
 import android.Manifest
@@ -10,7 +11,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.*
 import android.text.InputType
@@ -37,7 +37,7 @@ class MainActivity : Activity() {
         }
     }
 
-    private val background = Color.rgb(10, 18, 30)
+    private val screenBackgroundColor = Color.rgb(10, 18, 30)
     private val panel = Color.rgb(22, 34, 51)
     private val green = Color.rgb(40, 210, 130)
     private val white = Color.WHITE
@@ -56,7 +56,7 @@ class MainActivity : Activity() {
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(22, 28, 22, 35)
-            setBackgroundColor(background)
+            setBackgroundColor(this@MainActivity.screenBackgroundColor)
         }
 
         fun label(value: String, size: Float = 15f, color: Int = white) {
@@ -252,7 +252,14 @@ class MainActivity : Activity() {
         )
 
         if (requestCode == 700) {
-            startScanner()
+            if (
+                grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+            ) {
+                startScanner()
+            } else {
+                toast("يجب السماح بالإشعارات لتلقي التنبيهات")
+            }
         }
     }
 
